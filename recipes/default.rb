@@ -10,7 +10,9 @@
 # Build download URL
 tomcat_version = node['tomcat-all']['version']
 major_version = tomcat_version[0]
-download_url = "http://archive.apache.org/dist/tomcat/tomcat-#{major_version}/v#{tomcat_version}/bin/apache-tomcat-#{tomcat_version}.tar.gz"
+
+download_url = node['tomcat-all']['download_url']
+download_url = "http://archive.apache.org/dist/tomcat/tomcat-#{major_version}/v#{tomcat_version}/bin/apache-tomcat-#{tomcat_version}.tar.gz" if download_url.nil?
 
 # Create group
 group node['tomcat-all']['group']
