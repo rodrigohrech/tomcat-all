@@ -37,7 +37,11 @@ end
 # Log rotation (catalina.out)
 template '/etc/logrotate.d/tomcat' do
   source 'logrotate.conf.erb'
-  notifies :create, "template[#{node['tomcat-all']['install_directory']}/tomcat/conf/server.xml]", :immediately
+  if not node['tomcat-all']['keep_server_xml']
+    notifies :create, "template[#{node['tomcat-all']['install_directory']}/tomcat/conf/server.xml]", :immediately
+  else
+    notifies :create, "template[#{node['tomcat-all']['install_directory']}/tomcat/bin/catalina.sh]", :immediately
+  end
 end
 
 # Tomcat server configuration
